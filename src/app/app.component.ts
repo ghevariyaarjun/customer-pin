@@ -1,7 +1,9 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
- 
+import {MatDialog} from '@angular/material/dialog';
+import { CreateCustomerComponent } from './forms/create-customer/create-customer.component';
+
 export interface PeriodicElement {
   image: string;
   title: number;
@@ -43,7 +45,18 @@ export class AppComponent {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  constructor(public dialog: MatDialog) {}
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
+
+  openAddCustomerDialog() {
+    const dialogRef = this.dialog.open(CreateCustomerComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`openAddCustomerDialog result: ${result}`);
+    });
+  }
+
 }
