@@ -15,12 +15,16 @@ export class CustomerPinComponent {
     title: new FormControl('', [Validators.required]),
     image: new FormControl('', [Validators.required]),
     collaboratory: new FormControl('', [Validators.required]),
+    privacy: new FormControl('Private', [Validators.required]),
+    collaboratoryList: new FormControl('', [Validators.required]),
   });
 
   uploader: FileUploader;
   hasBaseDropZoneOver: boolean;
   hasAnotherDropZoneOver: boolean;
   response: string;
+
+  collaboratoryList = [];
 
   constructor() {
     this.uploader = new FileUploader({

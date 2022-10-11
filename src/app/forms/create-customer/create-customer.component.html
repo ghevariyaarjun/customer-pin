@@ -39,7 +39,7 @@
         formControlName="region"
         [allowClear]="true"
         [items]="regionList"
-        placeholder="No region selected"
+        placeholder="Select region"
         (selectionChanges)="regionOptionChange($event)"
       >
       </ngx-select>
@@ -52,7 +52,7 @@
         formControlName="country"
         [allowClear]="true"
         [items]="countryList"
-        placeholder="No country selected"
+        placeholder="Select country"
       >
       </ngx-select>
       <mat-error *ngIf="addCustomerForm.get('country')?.hasError('required')">
