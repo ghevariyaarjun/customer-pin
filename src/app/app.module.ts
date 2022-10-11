@@ -10,6 +10,27 @@ import { CreateCustomerComponentModule } from './forms/create-customer/create-cu
 import {MatDialogModule} from '@angular/material/dialog';
 import { CustomerPinComponentModule } from './forms/customer-pin/customer-pin.component.module';
 
+import { NgxIndexedDBModule, DBConfig } from 'ngx-indexed-db';
+
+const dbConfig: DBConfig  = {
+  name: 'MyDb',
+  version: 1,
+  objectStoresMeta: [{
+    store: 'customer',
+    storeConfig: { keyPath: 'id', autoIncrement: true },
+    storeSchema: [
+      { name: 'title', keypath: 'title', options: { unique: false } }
+    ]
+  },{
+    store: 'pin',
+    storeConfig: { keyPath: 'id', autoIncrement: true },
+    storeSchema: [
+      { name: 'title', keypath: 'title', options: { unique: false } }
+    ]
+  }]
+};
+
+
 @NgModule({
   declarations: [
     AppComponent
@@ -22,7 +43,8 @@ import { CustomerPinComponentModule } from './forms/customer-pin/customer-pin.co
     BrowserAnimationsModule,
     MatDialogModule,
     CreateCustomerComponentModule,
-    CustomerPinComponentModule
+    CustomerPinComponentModule,
+    NgxIndexedDBModule.forRoot(dbConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]
