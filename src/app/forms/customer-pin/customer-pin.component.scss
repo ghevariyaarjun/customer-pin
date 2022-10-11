@@ -1,0 +1,38 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+mat-dialog-content {
+  height: 500px;
+}
+
+.pb8 {
+  padding-bottom: 18px;
+}
+
+.my-drop-zone {
+  border: dotted 3px lightgray;
+}
+.nv-file-over {
+  border: dotted 3px red;
+} /* Default class applied to drop zones on over */
+.another-file-over-class {
+  border: dotted 3px green;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.base-img {
+  padding-top: 18px;
+  width: 82px;
+  height: 69px;
+}
