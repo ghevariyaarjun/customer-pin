@@ -8,6 +8,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateCustomerComponentModule } from './forms/create-customer/create-customer.component.module';
 import {MatDialogModule} from '@angular/material/dialog';
+import { CustomerPinComponentModule } from './forms/customer-pin/customer-pin.component.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatPaginatorModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    CreateCustomerComponentModule
+    CreateCustomerComponentModule,
+    CustomerPinComponentModule
   ],
   providers: [],
   bootstrap: [AppComponent]

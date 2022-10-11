@@ -3,6 +3,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog';
 import { CreateCustomerComponent } from './forms/create-customer/create-customer.component';
+import { CustomerPinComponent } from './forms/customer-pin/customer-pin.component';
 
 export interface PeriodicElement {
   image: string;
@@ -53,6 +54,14 @@ export class AppComponent {
 
   openAddCustomerDialog() {
     const dialogRef = this.dialog.open(CreateCustomerComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`openAddCustomerDialog result: ${result}`);
+    });
+  }
+
+  openAddPinDialog() {
+    const dialogRef = this.dialog.open(CustomerPinComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`openAddCustomerDialog result: ${result}`);
