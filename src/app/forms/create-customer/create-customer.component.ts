@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
 
 import regionAPI from './country';
 
@@ -21,11 +23,34 @@ export class CreateCustomerComponent implements OnInit {
     .filter((v, i, a) => a.indexOf(v) === i);
 
   countryList: any = [];
-  constructor() {}
+  constructor(
+    private _snackBar: MatSnackBar,
+    private dbService: NgxIndexedDBService
+  ) {}
 
   ngOnInit(): void {}
 
-  callingFunction() {}
+  onCustomerFormSubmit(form: any) {
+    if (form.status === 'INVALID') {
+      this._snackBar.open('Please fill Form', 'Error', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else {
+      this.dbService
+        .add('customer', {
+          ...form.value,
+        })
+        .subscribe((key) => {
+          this._snackBar.open('Customer created.', 'Success', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+
+          this.addCustomerForm.reset();
+        });
+    }
+  }
 
   regionOptionChange(ev: any) {
     if (ev[0] && ev[0].value) {

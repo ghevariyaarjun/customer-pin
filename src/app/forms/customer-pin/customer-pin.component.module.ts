@@ -9,8 +9,9 @@ import { MatInputModule } from '@angular/material/input';
 
 import { NgxSelectModule } from 'ngx-select-ex';
 
-import { FileUploadModule } from 'ng2-file-upload';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { MatRadioModule } from '@angular/material/radio';
     NgxSelectModule,
     FileUploadModule,
     MatRadioModule,
+    MatSnackBarModule,
   ],
   declarations: [CustomerPinComponent],
   exports: [CustomerPinComponent],

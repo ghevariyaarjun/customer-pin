@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileUploader } from 'ng2-file-upload';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
 
 // const URL = '/api/';
 const URL = 'http://localhost:3000/api/';
@@ -11,12 +13,14 @@ const URL = 'http://localhost:3000/api/';
   styleUrls: ['./customer-pin.component.scss'],
 })
 export class CustomerPinComponent {
-  addCustomerForm = new FormGroup({
+  addCustomerPinForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
-    image: new FormControl('', [Validators.required]),
-    collaboratory: new FormControl('', [Validators.required]),
-    privacy: new FormControl('Private', [Validators.required]),
+    image: new FormControl(
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Temp_plate.svg/1280px-Temp_plate.svg.png',
+      [Validators.required]
+    ),
     collaboratoryList: new FormControl('', [Validators.required]),
+    privacy: new FormControl('Private', [Validators.required]),
   });
 
   uploader: FileUploader;
@@ -24,9 +28,16 @@ export class CustomerPinComponent {
   hasAnotherDropZoneOver: boolean;
   response: string;
 
-  collaboratoryList = [];
+  collaboratorsList: any = [];
 
-  constructor() {
+  constructor(
+    private dbService: NgxIndexedDBService,
+    private _snackBar: MatSnackBar
+  ) {
+    this.dbService.getAll('customer').subscribe((peoples) => {
+      this.collaboratorsList = peoples;
+    });
+
     this.uploader = new FileUploader({
       url: URL,
       disableMultipart: true, // 'DisableMultipart' must be 'true' for formatDataFunction to be called.
@@ -48,7 +59,9 @@ export class CustomerPinComponent {
 
     this.response = '';
 
-    this.uploader.response.subscribe((res) => (this.response = res));
+    this.uploader.response.subscribe((res) =>
+      this.addCustomerPinForm.patchValue({ image: res })
+    );
   }
 
   public fileOverBase(e: any): void {
@@ -59,7 +72,34 @@ export class CustomerPinComponent {
     this.hasAnotherDropZoneOver = e;
   }
 
-  callingFunction() {}
+  onCustomerPinSubmit(form: any) {
+    if (form.status === 'INVALID') {
+      if (form.value.image) {
+        this._snackBar.open('Please fill Form', 'Error', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      } else {
+        this._snackBar.open('Image Missing', 'Error', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      }
+    } else {
+      this.dbService
+        .add('pin', {
+          ...form.value,
+        })
+        .subscribe((key) => {
+          this._snackBar.open('Customer Pin created.', 'Success', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+
+          this.addCustomerPinForm.reset();
+        });
+    }
+  }
 
   fileSelected(ev: any) {
     console.log(ev);

@@ -8,9 +8,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { MatInputModule } from '@angular/material/input';
 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxSelectModule } from 'ngx-select-ex';
 
- 
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +18,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
     ReactiveFormsModule,
     MatDialogModule,
     MatInputModule,
-    NgxSelectModule
+    NgxSelectModule,
+    MatSnackBarModule,
   ],
   declarations: [CreateCustomerComponent],
   exports: [CreateCustomerComponent],

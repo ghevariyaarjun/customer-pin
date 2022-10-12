@@ -3,7 +3,7 @@
   <form
     class="example-form"
     [formGroup]="addCustomerForm"
-    (ngSubmit)="callingFunction()"
+    (ngSubmit)="onCustomerFormSubmit(addCustomerForm)"
   >
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Title</mat-label>
@@ -13,7 +13,13 @@
         formControlName="title"
         placeholder="Customer Title"
       />
-      <mat-error *ngIf="addCustomerForm.get('title')?.hasError('required')">
+      <mat-error
+        *ngIf="
+          (addCustomerForm.get('title')?.dirty ||
+            addCustomerForm.get('title')?.touched) &&
+          addCustomerForm.get('title')?.hasError('required')
+        "
+      >
         Title is <strong>required</strong>
       </mat-error>
     </mat-form-field>
@@ -26,10 +32,22 @@
         formControlName="email"
         placeholder="Ex. pat@example.com"
       />
-      <mat-error *ngIf="addCustomerForm.get('email')?.hasError('required')">
+      <mat-error
+        *ngIf="
+          (addCustomerForm.get('email')?.dirty ||
+            addCustomerForm.get('email')?.touched) &&
+          addCustomerForm.get('email')?.hasError('required')
+        "
+      >
         Please enter a valid email address
       </mat-error>
-      <mat-error *ngIf="addCustomerForm.get('email')?.hasError('required')">
+      <mat-error
+        *ngIf="
+          (addCustomerForm.get('email')?.dirty ||
+            addCustomerForm.get('email')?.touched) &&
+          addCustomerForm.get('email')?.hasError('required')
+        "
+      >
         Email is <strong>required</strong>
       </mat-error>
     </mat-form-field>
@@ -43,7 +61,13 @@
         (selectionChanges)="regionOptionChange($event)"
       >
       </ngx-select>
-      <mat-error *ngIf="addCustomerForm.get('region')?.hasError('required')">
+      <mat-error
+        *ngIf="
+          (addCustomerForm.get('region')?.dirty ||
+            addCustomerForm.get('region')?.touched) &&
+          addCustomerForm.get('region')?.hasError('required')
+        "
+      >
         Region is <strong>required</strong>
       </mat-error>
     </div>
@@ -55,14 +79,21 @@
         placeholder="Select country"
       >
       </ngx-select>
-      <mat-error *ngIf="addCustomerForm.get('country')?.hasError('required')">
+      <mat-error
+        *ngIf="
+          (addCustomerForm.get('country')?.dirty ||
+            addCustomerForm.get('country')?.touched) &&
+          addCustomerForm.get('country')?.hasError('required')
+        "
+      >
         Country is <strong>required</strong>
       </mat-error>
     </div>
+
+    <div class="tac">
+      <button type="submit" class="btn btn-primary">Create Customer</button>
+    </div>
   </form>
 
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>
-    Create Customer
-  </button>
+  <button class="btn btn-danger" mat-dialog-close>Close Form</button>
 </mat-dialog-content>
